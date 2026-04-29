@@ -1,6 +1,6 @@
 import "./styles.css";
 import { createList } from "./todo-list.js";
-
+import { getLocalStorage, setLocalStorage } from "./storage.js";
 
 const list = createList();
 
@@ -27,10 +27,16 @@ list.addTaskToProject("Home office setup", "Cable management", "Hide all cables 
 list.addTaskToProject("Home office setup", "Set up monitors", "Dual monitor arm mount")
 list.addTaskToProject("Home office setup", "Install shelving", "Two shelves above the desk")
 
+
+const toJson = JSON.stringify(list.getList())
+setLocalStorage("list", toJson);
+
+console.log(JSON.parse(getLocalStorage("list")))
+
 console.table(list.getList());
-for (let item of list.getList()) {
-    console.table(item.task)
-}
+// for (let item of list.getList()) {
+//     console.table(item.task)
+// }
 
 
 
@@ -38,20 +44,3 @@ for (let item of list.getList()) {
 
 
 
-
-
-
-
-// function getLocalStorage(item) {
-//     return localStorage.getItem(item);
-// };
-
-// function setLocalStorage(key, value) {
-//     localStorage.setItem(key, value);
-// };
-
-
-
-// function handleLocalStorage() {
-
-// };
