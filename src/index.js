@@ -1,7 +1,8 @@
 import "./styles.css";
 import { createList } from "./todo-list.js";
 import { getLocalStorage, setLocalStorage } from "./storage.js";
-
+import { finishTask } from "./project-methods.js";
+import { userInterface } from "./user-interface.js";
 
 const list = createList();
 
@@ -30,16 +31,16 @@ list.addTaskToProject("Home office setup", "Install shelving", "Two shelves abov
 
 
 
+for (const item of list.getList()) {
 
+    for (const task of item.task) {
+        finishTask(task);
+        console.log(task)
 
+    }
 
-
-console.table(list.getList());
-for (let item of list.getList()) {
-
-    console.table(item.task)
 }
-
+console.table(list.getList());
 
 
 

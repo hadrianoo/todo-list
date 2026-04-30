@@ -1,5 +1,6 @@
 function createTask(description, notes, priority = "low", dueDate) {
     return {
+        id: crypto.randomUUID(),
         description,
         notes,
         isDone: false,
