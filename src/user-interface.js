@@ -44,8 +44,10 @@ function userInterface(arr) {
     });
 
     main.addEventListener("click", (event) => {
-        const taskID = event.target.parentElement.id;
-        if (event.target.className === "isDone") {
+        const taskID = event.target.closest(".task").id;
+        if (!taskID) return;
+        console.log(event.target.closest(".isDone").className)
+        if (event.target.closest(".isDone").className === "isDone") {
             removeTask(arrProjects, taskID);
         };
         updateMain(currentProjectID);
@@ -54,7 +56,12 @@ function userInterface(arr) {
         setLocalStorage("todo-list", arrProjects);
     });
 
-
+    // main.addEventListener("mouseover", (event) => {
+    //     const task = event.target.closest(".task");
+    //     if (!task) return;
+    //     task.classList.add("active");
+    //     console.log(task)
+    // })
 };
 
 export { userInterface };

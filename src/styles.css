@@ -79,6 +79,7 @@ body {
     font-weight: 600;
     grid-row: 1;
     grid-column: 1;
+    padding-bottom: 1rem;
 }
 
 .main>.task>.notes {
@@ -89,20 +90,24 @@ body {
 .main>.task>.isDone {
     grid-row: 1;
     grid-column: 4;
-
+    place-self: start center;
 }
 
 .main>.task>.priority {
     grid-row: 2;
     grid-column: 4;
-}
-
-.main>.task>.isDone {
-    place-self: start center;
-}
-
-.main>.task>.priority {
     place-self: end center;
+}
+
+
+.main>.task>.isDone,
+.main>.task>.priority {
+    display: none;
+}
+
+.task:hover .isDone,
+.task:hover .priority {
+    display: block;
 }
 
 .main>.task>.dueDate {}

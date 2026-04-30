@@ -1,3 +1,5 @@
+import { svgLib } from "./svg-elements.js";
+
 function printProject(appendTo, project) {
     const projectContainer = document.createElement("div");
     const title = document.createElement("div");
@@ -37,7 +39,7 @@ function printTask(appendTo, task) {
     priority.className = "priority";
     dueDate.className = "dueDate";
 
-    isDone.textContent = task.isDone;
+    isDone.innerHTML = svgLib().exitSVG;
     description.textContent = task.description;
     notes.textContent = task.notes;
     priority.textContent = task.priority;
@@ -52,3 +54,4 @@ function printTask(appendTo, task) {
 };
 
 export { printProject, printTask };
+
