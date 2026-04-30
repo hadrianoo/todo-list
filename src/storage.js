@@ -1,12 +1,13 @@
 function getLocalStorage(key) {
-    return localStorage.getItem(key);
+    if (localStorage.getItem(key) !== null) {
+        const raw = localStorage.getItem(key);
+        return JSON.parse(raw);
+    }
 };
 
 function setLocalStorage(key, value) {
-    if (localStorage.getItem(key) !== null) {
-        localStorage.removeItem(key);
-    }
-    localStorage.setItem(key, value);
+    const string = JSON.stringify(value);
+    localStorage.setItem(key, string);
 };
 
 export { getLocalStorage, setLocalStorage };
