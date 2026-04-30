@@ -8,7 +8,10 @@ function userInterface(arr) {
     const projects = document.querySelector("#projects");
     const main = document.querySelector(".main");
 
+    let currentProjectID = "";
+
     const arrProjects = getLocalStorage("todo-list") || arr;
+
 
     function updateProjects() {
         projects.innerHTML = "";
@@ -35,25 +38,21 @@ function userInterface(arr) {
     }
 
     projects.addEventListener("click", (event) => {
+        currentProjectID = event.target.id;
         updateMain(event.target.id);
         updateProjects();
     });
 
     main.addEventListener("click", (event) => {
-        const parentID = event.target.parentElement.id;
-        const ParentParentID = event.target.parentElement.parentElement.id;
+        const taskID = event.target.parentElement.id;
         if (event.target.className === "isDone") {
-            finishTask(arrProjects, parentID);
+            removeTask(arrProjects, taskID);
         };
-        updateMain(ParentParentID);
+        updateMain(currentProjectID);
+
         updateProjects();
         setLocalStorage("todo-list", arrProjects);
     });
-
-
-
-
-
 
 
 };

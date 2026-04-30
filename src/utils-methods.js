@@ -13,14 +13,22 @@ const finishTask = (arrProjects, id) => {
             proj.task.forEach(task => {
                 if (id === task.id) {
                     task.isDone = true;
-                    console.log(task.isDone)
                 }
             })
         }
     })
 };
 
-const removeTask = (projectID, taskID) => {
+const removeTask = (arrProjects, id) => {
+    arrProjects.forEach(proj => {
+        if (proj.task !== []) {
+            proj.task.forEach((item, index) => {
+                if (id === item.id) {
+                    proj.task.splice(index, 1);
+                }
+            })
+        }
+    })
 
 
 };
