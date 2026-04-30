@@ -1,4 +1,4 @@
-function createTask(description, notes, priority, dueDate) {
+function createTask(description, notes, priority = "low", dueDate) {
     return {
         description,
         notes,
@@ -8,12 +8,11 @@ function createTask(description, notes, priority, dueDate) {
     };
 };
 
-function createProject(title, dueDate, priority, notes) {
+function createProject(title, dueDate, notes) {
     return {
         id: crypto.randomUUID(),
         title,
         dueDate,
-        priority,
         notes,
         task: [],
     };
@@ -29,8 +28,8 @@ function createList() {
     ];
 
     function getList() { return list };
-    function addProjectToList(title, dueDate, priority, notes) {
-        const project = createProject(title, dueDate, priority, notes);
+    function addProjectToList(title, dueDate, notes) {
+        const project = createProject(title, dueDate, notes);
         list.push(project);
     };
 
