@@ -42,6 +42,8 @@ for (const item of list.getList()) {
 }
 console.table(list.getList());
 
+userInterface(list.getList())
+
 
 
 
