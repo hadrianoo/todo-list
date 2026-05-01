@@ -49,25 +49,25 @@ function userInterface(arr) {
         const taskIsDone = event.target.closest(".isDone");
         const taskPriority = event.target.closest(".priority");
         if (taskID) {
-            if (event.target.closest(".task").className === "task") {
-                // console.log(taskID.classList)
-                taskID.classList.toggle("active");
-                console.log(taskID.classList)
-            }
+
+            taskID.classList.toggle("active");
+            console.log(taskID.classList)
+
         }
         if (taskIsDone) {
-            if (event.target.closest(".isDone").className === "isDone") {
-                removeTask(arrProjects, taskID.id);
-            };
+
+            removeTask(arrProjects, taskID.id);
+            updateMain(currentProjectID);
+
         } else if (taskPriority) {
-            if (event.target.closest(".priority").className === "priority") {
-                changePriority(arrProjects, taskID.id);
-            };
+
+            changePriority(arrProjects, taskID.id);
+            updateMain(currentProjectID);
+
         }
 
 
-        updateMain(currentProjectID);
-        updateProjects();
+
         setLocalStorage("todo-list", arrProjects);
     });
 
