@@ -89,8 +89,18 @@ input::placeholder {
 
 input:read-only {
     border: none;
-    background-color: rgb(206, 206, 206);
+    background-color: rgba(0, 0, 0, 0);
 }
+
+input:read-only:focus {
+    outline: none;
+}
+
+input:read-write {
+    background-color: red;
+}
+
+
 
 .task>.notes {
     grid-row: 2;
@@ -110,22 +120,30 @@ input:read-only {
     place-self: end center;
 }
 
+.task>.edit {
+    grid-row: 2;
+    grid-column: 3;
+    place-self: end center;
+}
 
 .task>.isDone,
 .task>.priority,
-.task>.notes {
+.task>.notes,
+.task>.edit {
     display: none;
 }
 
 .task:hover .isDone,
 .task:hover .priority,
-.task:hover .notes {
+.task:hover .notes,
+.task:hover .edit {
     display: block;
 }
 
 .task.active .isDone,
 .task.active .priority,
-.task.active .notes {
+.task.active .notes,
+.task.active .edit {
     display: block;
 }
 

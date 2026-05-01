@@ -2,7 +2,7 @@ function createTask(
     description = "What is your task?",
     notes = "Add details...",
     priority = "none",
-    dueDate = "Pick a date") {
+    dueDate = new Date()) {
     return {
         id: crypto.randomUUID(),
         description,
@@ -13,7 +13,10 @@ function createTask(
     };
 };
 
-function createProject(title, dueDate, notes) {
+function createProject(
+    title = "What is your project?",
+    dueDate = new Date(),
+    notes = "Add details...") {
     return {
         id: crypto.randomUUID(),
         title,
