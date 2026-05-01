@@ -1,15 +1,14 @@
-const todayDate = () => ({
-    dueDate: () => new Date(),
-});
-
 const changePriority = (listOfProjects, id) => {
     listOfProjects.forEach(project => {
         if (project.task !== []) {
             project.task.forEach((item, index) => {
                 if (id === item.id) {
-                    item.priority === "none"
-                        ? item.priority = "important"
-                        : item.priority = "none";
+                    item.priority = (item.priority === "none")
+                        ? "important"
+                        : "none"
+                    // item.priority === "none"
+                    //     ? item.priority = "important"
+                    //     : item.priority = "none";
                 };
             });
         };

@@ -36,10 +36,13 @@ function printTaskMain(appendTo, task) {
     const edit = document.createElement("div");
 
     description.type = "text";
+    description.name = "description";
     description.readOnly = true;
     notes.type = "text";
+    notes.name = "notes";
     notes.readOnly = true;
     dueDate.type = "date";
+    dueDate.name = "date";
     dueDate.readOnly = true;
 
     taskContainer.id = task.id;
@@ -50,11 +53,11 @@ function printTaskMain(appendTo, task) {
     description.className = "description";
     notes.className = "notes";
     priority.className = "priority button";
+    priority.dataset.action = "change-priority";
 
-    task.priority === "none"
-        ? taskContainer.style.backgroundColor = "rgb(206, 206, 206)"
-        : taskContainer.style.backgroundColor = "rgb(226, 235, 101)";
-
+    taskContainer.style.backgroundColor = (task.priority === "none")
+        ? "rgb(206, 206, 206)"
+        : "rgb(226, 235, 101)";
 
     dueDate.className = "dueDate";
     edit.className = "edit button";
@@ -97,5 +100,29 @@ function addButtonMain(appendTo) {
     appendTo.appendChild(addTask);
 };
 
-export { printProjectMain, printTaskMain, printProjects, addButtonProjects, addButtonMain };
+function editTask(task) {
+    const nodeList = task.querySelectorAll("input");
+    for (let i = 0; i < nodeList.length; i++) {
+        if (task.classList.contains("editable")) {
+            nodeList[i].readOnly = false;
+        } else {
+            nodeList[i].readOnly = true;
+        }
+
+    }
+
+
+    // task.description.readOnly = true;
+    // task.notes.readOnly = true;
+    // task.dueDate.readOnly = true;
+}
+
+export {
+    printProjectMain,
+    printTaskMain,
+    printProjects,
+    addButtonProjects,
+    addButtonMain,
+    editTask,
+};
 

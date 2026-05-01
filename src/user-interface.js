@@ -1,4 +1,4 @@
-import { printProjectMain, printTaskMain, printProjects, addButtonProjects, addButtonMain } from "./utils-interface.js";
+import { printProjectMain, printTaskMain, printProjects, addButtonProjects, addButtonMain, editTask } from "./utils-interface.js";
 import * as listManager from "./list-manager.js";
 import { getLocalStorage, setLocalStorage } from "./storage.js";
 import { createTask } from "./create-list.js";
@@ -53,10 +53,18 @@ function userInterface(arr) {
         const taskIsDone = event.target.closest(".isDone");
         const taskPriority = event.target.closest(".priority");
 
+        if (event.target.closest("[data-action]") === null) return;
+
         const action = event.target.closest("[data-action]").dataset.action;
         const actions = {
             "toggle-active": () => taskID.classList.toggle("active"),
-            "toggle-edit": () => taskID.classList.toggle("editable"),
+            "toggle-edit": () => {
+                taskID.classList.toggle("editable");
+                if (!taskID.classList.contains("active")) {
+                    taskID.classList.toggle("active")
+                }
+                editTask(taskID);
+            },
             "remove-task": () => {
                 listManager.removeTask(arrProjects, taskID.id);
                 updateMain(currentProjectID);
