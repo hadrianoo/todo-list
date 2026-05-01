@@ -19,6 +19,7 @@ body {
 }
 
 #projects-container {
+    position: relative;
     grid-column: 1;
     padding: 1rem;
     border: 1px solid black;
@@ -33,12 +34,13 @@ body {
 
 
 .main {
+    position: relative;
     grid-column: 2;
     padding: 1rem;
     border: 1px solid black;
 }
 
-.main>.header {
+.header {
     background-color: rgb(206, 206, 206);
     border-radius: 0.5rem;
     padding: 1rem;
@@ -47,67 +49,96 @@ body {
     grid-template: 2fr 1fr / 2fr 1fr;
 }
 
-.main>.header>.title {
+.header>.title {
     font-size: 2rem;
     font-weight: 600;
 }
 
-.main>.header>.dueDate {
+.header>.dueDate {
     justify-self: end;
 }
 
-.main>.header>.dueDate::before {
+.header>.dueDate::before {
     content: "Until:";
 }
 
-.main>.header>.notes {}
+.header>.notes {}
 
 
-.main>.task {
+.task {
     margin-left: 2rem;
     background-color: rgb(206, 206, 206);
     border-radius: 0.5rem;
     padding: 1rem;
     margin-top: 1rem;
     display: grid;
-    grid-template: min-content 1fr / 2fr 1fr min-content min-content;
-    gap: 1rem;
+    grid-template: min-content 1fr / 2fr min-content min-content;
+    column-gap: 1rem;
 }
 
-.main>.task>.description {
+.task>.description {
     font-size: 2rem;
     font-weight: 600;
     grid-row: 1;
     grid-column: 1;
-    padding-bottom: 1rem;
 }
 
-.main>.task>.notes {
+.task>.notes {
     grid-row: 2;
     grid-column: 1;
+    padding-top: 1rem;
 }
 
-.main>.task>.isDone {
+.task>.isDone {
     grid-row: 1;
     grid-column: 4;
     place-self: start center;
 }
 
-.main>.task>.priority {
+.task>.priority {
     grid-row: 2;
     grid-column: 4;
     place-self: end center;
 }
 
 
-.main>.task>.isDone,
-.main>.task>.priority {
+.task>.isDone,
+.task>.priority,
+.task>.notes {
     display: none;
 }
 
 .task:hover .isDone,
-.task:hover .priority {
+.task:hover .priority,
+.task:hover .notes {
     display: block;
 }
 
-.main>.task>.dueDate {}
+.task.active .isDone,
+.task.active .priority,
+.task.active .notes {
+    display: block;
+}
+
+.task>.dueDate {}
+
+
+.task-wrapper {
+    max-height: 40rem;
+    overflow: auto;
+}
+
+
+
+.add-main,
+.add-project {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+}
+
+
+
+.button:hover {
+    transform: scale(1.2);
+}
