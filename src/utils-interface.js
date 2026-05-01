@@ -92,6 +92,7 @@ function addButtonProjects(appendTo) {
 function addButtonMain(appendTo) {
     const addTask = document.createElement("div");
     addTask.className = "add-main button";
+    addTask.dataset.action = "add-task";
     addTask.innerHTML = svgLib().addSVG;
     appendTo.appendChild(addTask);
 };

@@ -53,8 +53,6 @@ function userInterface(arr) {
         const taskIsDone = event.target.closest(".isDone");
         const taskPriority = event.target.closest(".priority");
 
-
-
         const action = event.target.closest("[data-action]").dataset.action;
         const actions = {
             "toggle-active": () => taskID.classList.toggle("active"),
@@ -66,38 +64,13 @@ function userInterface(arr) {
             "change-priority": () => {
                 listManager.changePriority(arrProjects, taskID.id);
                 updateMain(currentProjectID);
-            }
-
+            },
+            "add-task": () => {
+                listManager.addNewTask(arrProjects, createTask(), projectID.id);
+                updateMain(currentProjectID);
+            },
         }
         if (actions[action]) actions[action]();
-
-        if (event.target.closest(".add-main")) {
-            listManager.addNewTask(arrProjects, createTask(), projectID.id);
-            updateMain(currentProjectID);
-        }
-        if (taskIsDone) {
-            // listManager.removeTask(arrProjects, taskID.id);
-            // updateMain(currentProjectID);
-        } else if (taskPriority) {
-            listManager.changePriority(arrProjects, taskID.id);
-            updateMain(currentProjectID);
-        }
-
-        // if (event.target.closest(".edit")) {
-        //     taskID.classList.add("active");
-        //     taskID.classList.toggle("editable");
-        // } else if (taskID) {
-        //     taskID.classList.toggle("active");
-        //     if (taskID.classList.contains("editable")) {
-        //         taskID.classList.remove("editable");
-        //     }
-        // }
-
-        // if (taskID) {
-        //     if () {
-
-        //     }
-        // }
 
         setLocalStorage("todo-list", arrProjects);
     });
