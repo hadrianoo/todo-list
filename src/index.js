@@ -1,7 +1,7 @@
 import "./styles.css";
-import { createList } from "./todo-list.js";
+import { createList } from "./create-list.js";
 import { getLocalStorage, setLocalStorage } from "./storage.js";
-import { finishTask } from "./utils-methods.js";
+import { finishTask } from "./list-manager.js";
 import { userInterface } from "./user-interface.js";
 
 const list = createList();

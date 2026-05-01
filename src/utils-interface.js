@@ -24,11 +24,16 @@ function printProjectMain(appendTo, project) {
 
 function printTaskMain(appendTo, task) {
     const taskContainer = document.createElement("div");
-    const description = document.createElement("div");
-    const notes = document.createElement("div");
+    const description = document.createElement("input");
+    const notes = document.createElement("input");
     const isDone = document.createElement("div");
     const priority = document.createElement("div");
     const dueDate = document.createElement("div");
+
+    description.type = "text";
+    description.readOnly = true;
+    notes.type = "text";
+    notes.readOnly = true;
 
     taskContainer.id = task.id;
     taskContainer.className = "task";
@@ -40,8 +45,8 @@ function printTaskMain(appendTo, task) {
     dueDate.className = "dueDate";
 
     isDone.innerHTML = svgLib().exitSVG;
-    description.textContent = task.description;
-    notes.textContent = task.notes;
+    description.placeholder = task.description;
+    notes.placeholder = task.notes;
     priority.innerHTML = svgLib().importantSVG;
     dueDate.textContent = task.dueDate;
 
@@ -72,6 +77,10 @@ function addButtonMain(appendTo) {
     addTask.innerHTML = svgLib().addSVG;
     appendTo.appendChild(addTask);
 };
+
+function createNewTask() {
+
+}
 
 export { printProjectMain, printTaskMain, printProjects, addButtonProjects, addButtonMain };
 

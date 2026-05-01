@@ -1,4 +1,8 @@
-function createTask(description, notes, priority = "none", dueDate) {
+function createTask(
+    description = "What is your task?",
+    notes = "Add details...",
+    priority = "none",
+    dueDate = "Pick a date") {
     return {
         id: crypto.randomUUID(),
         description,
@@ -50,4 +54,4 @@ function createList() {
     }
 };
 
-export { createList };
+export { createList, createTask, createProject };

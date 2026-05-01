@@ -1,6 +1,7 @@
 import { printProjectMain, printTaskMain, printProjects, addButtonProjects, addButtonMain } from "./utils-interface.js";
-import { changePriority, finishTask, removeTask } from "./utils-methods.js";
+import * as listManager from "./list-manager.js";
 import { getLocalStorage, setLocalStorage } from "./storage.js";
+import { createTask } from "./create-list.js";
 
 function userInterface(arr) {
 
@@ -45,28 +46,26 @@ function userInterface(arr) {
     });
 
     main.addEventListener("click", (event) => {
+        const projectID = event.target.closest(".project-wrapper");
         const taskID = event.target.closest(".task");
         const taskIsDone = event.target.closest(".isDone");
         const taskPriority = event.target.closest(".priority");
+
         if (taskID) {
-
             taskID.classList.toggle("active");
-            console.log(taskID.classList)
-
         }
         if (taskIsDone) {
-
-            removeTask(arrProjects, taskID.id);
+            listManager.removeTask(arrProjects, taskID.id);
             updateMain(currentProjectID);
-
         } else if (taskPriority) {
-
-            changePriority(arrProjects, taskID.id);
+            listManager.changePriority(arrProjects, taskID.id);
             updateMain(currentProjectID);
-
         }
-
-
+        if (event.target.closest(".add-main")) {
+            console.log("df")
+            listManager.addNewTask(arrProjects, createTask(), projectID.id);
+            updateMain(currentProjectID);
+        }
 
         setLocalStorage("todo-list", arrProjects);
     });
