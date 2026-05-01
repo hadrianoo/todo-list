@@ -12,10 +12,10 @@ list.addTaskToProject("Default", "Install new cabinets", "Assemble and mount upp
 list.addTaskToProject("Default", "Lay new floor", "Measure area before ordering tiles")
 
 list.addProjectToList("Kitchen renovation", "2024-12-31", "Start with painting the walls")
-// list.addTaskToProject("Kitchen renovation", "Buy paint", "Choose color and calculate amount needed")
-// list.addTaskToProject("Kitchen renovation", "Remove old tiles", "Kitchen backsplash area only")
-// list.addTaskToProject("Kitchen renovation", "Install new cabinets", "Assemble and mount upper and lower units")
-// list.addTaskToProject("Kitchen renovation", "Lay new floor", "Measure area before ordering tiles")
+list.addTaskToProject("Kitchen renovation", "Buy paint", "Choose color and calculate amount needed")
+list.addTaskToProject("Kitchen renovation", "Remove old tiles", "Kitchen backsplash area only")
+list.addTaskToProject("Kitchen renovation", "Install new cabinets", "Assemble and mount upper and lower units")
+list.addTaskToProject("Kitchen renovation", "Lay new floor", "Measure area before ordering tiles")
 
 list.addProjectToList("Garden redesign", "2025-03-15", "Focus on the backyard first")
 list.addTaskToProject("Garden redesign", "Clear old plants", "Remove dead bushes and weeds")

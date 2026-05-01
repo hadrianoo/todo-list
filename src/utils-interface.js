@@ -1,6 +1,6 @@
 import { svgLib } from "./svg-elements.js";
 
-function printProject(appendTo, project) {
+function printProjectMain(appendTo, project) {
     const projectContainer = document.createElement("div");
     const title = document.createElement("div");
     const dueDate = document.createElement("div");
@@ -22,7 +22,7 @@ function printProject(appendTo, project) {
     appendTo.appendChild(projectContainer);
 };
 
-function printTask(appendTo, task) {
+function printTaskMain(appendTo, task) {
     const taskContainer = document.createElement("div");
     const description = document.createElement("div");
     const notes = document.createElement("div");
@@ -42,7 +42,7 @@ function printTask(appendTo, task) {
     isDone.innerHTML = svgLib().exitSVG;
     description.textContent = task.description;
     notes.textContent = task.notes;
-    priority.textContent = task.priority;
+    priority.innerHTML = svgLib().importantSVG;
     dueDate.textContent = task.dueDate;
 
     taskContainer.appendChild(isDone);
@@ -53,5 +53,24 @@ function printTask(appendTo, task) {
     appendTo.appendChild(taskContainer);
 };
 
-export { printProject, printTask };
+function printProjects(appendTo, arrProjects) {
+    for (const project of arrProjects) {
+        const projectTitle = document.createElement("div");
+        projectTitle.textContent = project.title;
+        projectTitle.id = project.id;
+        appendTo.appendChild(projectTitle);
+    };
+};
+
+function addButtonProjects(appendTo) {
+    appendTo.innerHTML = svgLib().addSVG;
+};
+
+function addButtonMain(appendTo) {
+    const addTask = document.createElement("div");
+    addTask.innerHTML = svgLib().addSVG;
+    appendTo.appendChild(addTask);
+};
+
+export { printProjectMain, printTaskMain, printProjects, addButtonProjects, addButtonMain };
 
