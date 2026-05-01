@@ -108,13 +108,7 @@ function editTask(task) {
         } else {
             nodeList[i].readOnly = true;
         }
-
     }
-
-
-    // task.description.readOnly = true;
-    // task.notes.readOnly = true;
-    // task.dueDate.readOnly = true;
 }
 
 export {

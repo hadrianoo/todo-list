@@ -1,4 +1,4 @@
-import { printProjectMain, printTaskMain, printProjects, addButtonProjects, addButtonMain, editTask } from "./utils-interface.js";
+import * as utilsManager from "./utils-manager.js";
 import * as listManager from "./list-manager.js";
 import { getLocalStorage, setLocalStorage } from "./storage.js";
 import { createTask } from "./create-list.js";
@@ -16,8 +16,8 @@ function userInterface(arr) {
 
     function updateProjects() {
         projects.innerHTML = "";
-        printProjects(projects, arrProjects);
-        addButtonProjects(addProject);
+        utilsManager.printProjects(projects, arrProjects);
+        utilsManager.addButtonProjects(addProject);
     };
 
     updateProjects();
@@ -29,14 +29,14 @@ function userInterface(arr) {
 
         for (const project of arrProjects) {
             if (targetID === project.id) {
-                printProjectMain(projectWrapper, project);
+                utilsManager.printProjectMain(projectWrapper, project);
                 for (const task of project.task) {
-                    printTaskMain(taskWrapper, task);
+                    utilsManager.printTaskMain(taskWrapper, task);
                 };
             };
         };
         projectWrapper.appendChild(taskWrapper);
-        addButtonMain(projectWrapper);
+        utilsManager.addButtonMain(projectWrapper);
     }
 
     projects.addEventListener("click", (event) => {
@@ -49,28 +49,26 @@ function userInterface(arr) {
 
     main.addEventListener("click", (event) => {
         const projectID = event.target.closest(".project-wrapper");
-        const taskID = event.target.closest(".task");
-        const taskIsDone = event.target.closest(".isDone");
-        const taskPriority = event.target.closest(".priority");
+        const taskDOM = event.target.closest(".task");
 
         if (event.target.closest("[data-action]") === null) return;
 
         const action = event.target.closest("[data-action]").dataset.action;
         const actions = {
-            "toggle-active": () => taskID.classList.toggle("active"),
+            "toggle-active": () => taskDOM.classList.toggle("active"),
             "toggle-edit": () => {
-                taskID.classList.toggle("editable");
-                if (!taskID.classList.contains("active")) {
-                    taskID.classList.toggle("active")
+                taskDOM.classList.toggle("editable");
+                if (!taskDOM.classList.contains("active")) {
+                    taskDOM.classList.toggle("active")
                 }
-                editTask(taskID);
+                utilsManager.editTask(taskDOM);
             },
             "remove-task": () => {
-                listManager.removeTask(arrProjects, taskID.id);
+                listManager.removeTask(arrProjects, taskDOM.id);
                 updateMain(currentProjectID);
             },
             "change-priority": () => {
-                listManager.changePriority(arrProjects, taskID.id);
+                listManager.changePriority(arrProjects, taskDOM.id);
                 updateMain(currentProjectID);
             },
             "add-task": () => {
