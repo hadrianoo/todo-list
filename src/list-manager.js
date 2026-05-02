@@ -1,6 +1,6 @@
 const changePriority = (listOfProjects, id) => {
     listOfProjects.forEach(project => {
-        if (project.task !== []) {
+        if (project.task.length > 0) {
             project.task.forEach((item) => {
                 if (id === item.id) {
                     item.priority = (item.priority === "none")
@@ -15,7 +15,7 @@ const changePriority = (listOfProjects, id) => {
 
 const finishTask = (listOfProjects, id) => {
     listOfProjects.forEach(project => {
-        if (project.task !== []) {
+        if (project.task.length > 0) {
             project.task.forEach(task => {
                 if (id === task.id) {
                     task.isDone = true;
@@ -27,7 +27,7 @@ const finishTask = (listOfProjects, id) => {
 
 const removeTask = (listOfProjects, id) => {
     listOfProjects.forEach(project => {
-        if (project.task !== []) {
+        if (project.task.length > 0) {
             project.task.forEach((item, index) => {
                 if (id === item.id) {
                     project.task.splice(index, 1);
@@ -45,17 +45,19 @@ const addNewTask = (listOfProjects, newTask, id) => {
     });
 };
 
-const editTaskList = (listOfProjects, id) => {
+const editTaskList = (listOfProjects, id, data) => {
+    if (!data) return;
     listOfProjects.forEach(project => {
-        if (project.task !== []) {
+        if (project.task.length > 0) {
             project.task.forEach((item, index) => {
                 if (id === item.id) {
-                    // ToDo ...
-
+                    item.description = data.description;
+                    item.notes = data.notes;
+                    item.dueDate = data.dueDate;
                 };
             });
         };
     });
 };
 
-export { changePriority, finishTask, removeTask, addNewTask };
+export { changePriority, finishTask, removeTask, addNewTask, editTaskList };

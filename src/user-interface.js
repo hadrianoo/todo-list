@@ -12,8 +12,7 @@ function userInterface(arr) {
 
     let currentProjectID = "";
 
-    const arrProjects = getLocalStorage("todo-list") || arr;
-
+    let arrProjects = getLocalStorage("todo-list") || arr;
     function updateProjects() {
         projects.innerHTML = "";
         utilsManager.printProjects(projects, arrProjects);
@@ -48,6 +47,7 @@ function userInterface(arr) {
 
 
     main.addEventListener("click", (event) => {
+        arrProjects = getLocalStorage("todo-list") || arr;
         const projectID = event.target.closest(".project-wrapper");
         const taskDOM = event.target.closest(".task");
 
@@ -55,13 +55,18 @@ function userInterface(arr) {
 
         const action = event.target.closest("[data-action]").dataset.action;
         const actions = {
-            "toggle-active": () => taskDOM.classList.toggle("active"),
+            "toggle-active": () => {
+                if (taskDOM.classList.contains("editable")) return;
+                taskDOM.classList.toggle("active");
+            },
             "toggle-edit": () => {
                 taskDOM.classList.toggle("editable");
-                if (!taskDOM.classList.contains("active")) {
-                    taskDOM.classList.toggle("active")
-                }
-                utilsManager.editTask(taskDOM);
+                if (taskDOM.classList.contains("editable")) {
+                    taskDOM.classList.add("active");
+                } else {
+                    taskDOM.classList.remove("active");
+                };
+                listManager.editTaskList(arrProjects, taskDOM.id, utilsManager.editTaskDOM(taskDOM));
             },
             "remove-task": () => {
                 listManager.removeTask(arrProjects, taskDOM.id);

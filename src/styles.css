@@ -87,6 +87,11 @@ input::placeholder {
     color: black;
 }
 
+.editable input::placeholder {
+    color: grey;
+
+}
+
 input:read-only {
     border: none;
     background-color: rgba(0, 0, 0, 0);
@@ -97,10 +102,8 @@ input:read-only:focus {
 }
 
 input:read-write {
-    background-color: red;
+    color: grey;
 }
-
-
 
 .task>.notes {
     grid-row: 2;

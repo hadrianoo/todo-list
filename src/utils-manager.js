@@ -64,8 +64,8 @@ function printTaskMain(appendTo, task) {
     edit.dataset.action = "toggle-edit";
 
     isDone.innerHTML = svgLib().exitSVG;
-    description.placeholder = task.description;
-    notes.placeholder = task.notes;
+    description.value = task.description;
+    notes.value = task.notes;
     priority.innerHTML = svgLib().importantSVG;
     dueDate.valueAsDate = new Date(task.dueDate);
     edit.innerHTML = svgLib().editSVG;
@@ -100,16 +100,19 @@ function addButtonMain(appendTo) {
     appendTo.appendChild(addTask);
 };
 
-function editTask(task) {
+function editTaskDOM(task) {
     const nodeList = task.querySelectorAll("input");
+    let data = {};
     for (let i = 0; i < nodeList.length; i++) {
         if (task.classList.contains("editable")) {
             nodeList[i].readOnly = false;
         } else {
             nodeList[i].readOnly = true;
-        }
-    }
-}
+            data[nodeList[i].className] = nodeList[i].value;
+        };
+    };
+    return data;
+};
 
 export {
     printProjectMain,
@@ -117,6 +120,6 @@ export {
     printProjects,
     addButtonProjects,
     addButtonMain,
-    editTask,
+    editTaskDOM,
 };
 
