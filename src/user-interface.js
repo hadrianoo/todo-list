@@ -82,6 +82,7 @@ function userInterface(arr) {
                     const notes = currentProject.querySelector(".notes").value;
                     const dueDate = currentProject.querySelector(".dueDate").value;
                     listManager.editProjectList(arrProjects, currentProjectID, { title, notes, dueDate });
+                    updateProjects();
                 };
                 utilsManager.editProjectDOM(currentProject);
             },
