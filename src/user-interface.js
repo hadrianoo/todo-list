@@ -1,11 +1,12 @@
 import * as utilsManager from "./utils-manager.js";
 import * as listManager from "./list-manager.js";
 import { getLocalStorage, setLocalStorage } from "./storage.js";
-import { createTask } from "./create-list.js";
+import { createTask, createProject } from "./create-list.js";
 
 function userInterface(arr) {
 
     const projects = document.querySelector("#projects");
+    const projectsContainer = document.querySelector("#projects-container");
     const main = document.querySelector(".main");
     const addProject = document.querySelector(".add-project");
     const projectWrapper = document.querySelector(".project-wrapper");
@@ -36,48 +37,66 @@ function userInterface(arr) {
         };
         projectWrapper.appendChild(taskWrapper);
         utilsManager.addButtonMain(projectWrapper);
-    }
+    };
 
-    projects.addEventListener("click", (event) => {
-        currentProjectID = event.target.id;
+    projectsContainer.addEventListener("click", (event) => {
+        arrProjects = getLocalStorage("todo-list") || arr;
         updateMain(event.target.id);
+
+        if (event.target.closest("[data-action]") === null) return;
+        const action = event.target.closest("[data-action]").dataset.action;
+        const actions = {
+            "remove-project": () => {
+                currentProjectID = event.target.closest(".project").id;
+                listManager.removeProject(arrProjects, currentProjectID);
+            },
+            "add-project": () => {
+                console.log("fired")
+                listManager.addNewProject(arrProjects, createProject());
+            },
+        };
+        if (actions[action]) actions[action]();
+
+        setLocalStorage("todo-list", arrProjects);
         updateProjects();
     });
 
 
-
     main.addEventListener("click", (event) => {
         arrProjects = getLocalStorage("todo-list") || arr;
-        const projectID = event.target.closest(".project-wrapper");
-        const taskDOM = event.target.closest(".task");
+        const currentTask = event.target.closest(".task");
 
         if (event.target.closest("[data-action]") === null) return;
 
         const action = event.target.closest("[data-action]").dataset.action;
         const actions = {
             "toggle-active": () => {
-                if (taskDOM.classList.contains("editable")) return;
-                taskDOM.classList.toggle("active");
+                if (currentTask.classList.contains("editable")) return;
+                currentTask.classList.toggle("active");
             },
             "toggle-edit": () => {
-                taskDOM.classList.toggle("editable");
-                if (taskDOM.classList.contains("editable")) {
-                    taskDOM.classList.add("active");
+                currentTask.classList.toggle("editable");
+                if (currentTask.classList.contains("editable")) {
+                    currentTask.classList.add("active");
                 } else {
-                    taskDOM.classList.remove("active");
+                    currentTask.classList.remove("active");
+                    const description = currentTask.querySelector(".description").value;
+                    const notes = currentTask.querySelector(".notes").value;
+                    const dueDate = currentTask.querySelector(".dueDate").value;
+                    listManager.editTaskList(arrProjects, currentTask.id, { description, notes, dueDate });
                 };
-                listManager.editTaskList(arrProjects, taskDOM.id, utilsManager.editTaskDOM(taskDOM));
+                utilsManager.editTaskDOM(currentTask);
             },
             "remove-task": () => {
-                listManager.removeTask(arrProjects, taskDOM.id);
+                listManager.removeTask(arrProjects, currentTask.id);
                 updateMain(currentProjectID);
             },
             "change-priority": () => {
-                listManager.changePriority(arrProjects, taskDOM.id);
+                listManager.changePriority(arrProjects, currentTask.id);
                 updateMain(currentProjectID);
             },
             "add-task": () => {
-                listManager.addNewTask(arrProjects, createTask(), projectID.id);
+                listManager.addNewTask(arrProjects, createTask(), currentProjectID);
                 updateMain(currentProjectID);
             },
         }

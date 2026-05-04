@@ -82,8 +82,16 @@ function printTaskMain(appendTo, task) {
 function printProjects(appendTo, arrProjects) {
     for (const project of arrProjects) {
         const projectTitle = document.createElement("div");
+        const projectRemove = document.createElement("div");
         projectTitle.textContent = project.title;
         projectTitle.id = project.id;
+        projectTitle.className = "project";
+        if (project.title !== "Default") {
+            projectRemove.innerHTML = svgLib().exitSVG;
+            projectRemove.dataset.action = "remove-project";
+            projectRemove.className = "projectRemove button";
+        };
+        projectTitle.appendChild(projectRemove);
         appendTo.appendChild(projectTitle);
     };
 };
@@ -102,16 +110,13 @@ function addButtonMain(appendTo) {
 
 function editTaskDOM(task) {
     const nodeList = task.querySelectorAll("input");
-    let data = {};
     for (let i = 0; i < nodeList.length; i++) {
         if (task.classList.contains("editable")) {
             nodeList[i].readOnly = false;
         } else {
             nodeList[i].readOnly = true;
-            data[nodeList[i].className] = nodeList[i].value;
         };
     };
-    return data;
 };
 
 export {

@@ -37,12 +37,28 @@ const removeTask = (listOfProjects, id) => {
     });
 };
 
+const removeProject = (listOfProjects, id) => {
+    if (listOfProjects.length > 0) {
+        listOfProjects.forEach((project, index) => {
+            if (id === project.id) {
+                if (project.title !== "Default") {
+                    listOfProjects.splice(index, 1);
+                }
+            };
+        })
+    };
+};
+
 const addNewTask = (listOfProjects, newTask, id) => {
     listOfProjects.forEach(project => {
         if (project.id == id) {
             project.task.push(newTask);
         };
     });
+};
+
+const addNewProject = (listOfProjects, newProject) => {
+    listOfProjects.push(newProject);
 };
 
 const editTaskList = (listOfProjects, id, data) => {
@@ -60,4 +76,12 @@ const editTaskList = (listOfProjects, id, data) => {
     });
 };
 
-export { changePriority, finishTask, removeTask, addNewTask, editTaskList };
+export {
+    changePriority,
+    finishTask,
+    removeTask,
+    addNewTask,
+    editTaskList,
+    removeProject,
+    addNewProject
+};
