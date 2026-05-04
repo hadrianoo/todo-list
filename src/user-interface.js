@@ -57,7 +57,6 @@ function userInterface(arr) {
             },
         };
         if (actions[action]) actions[action]();
-
         setLocalStorage("todo-list", arrProjects);
         updateProjects();
     });

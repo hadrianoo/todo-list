@@ -27,7 +27,7 @@ const finishTask = (listOfProjects, id) => {
 const removeTask = (listOfProjects, id) => {
     listOfProjects.forEach(project => {
         if (project.task.length > 0) {
-            project.task.forEach((item, index) => {
+            project.task.filter((item, index) => {
                 if (id === item.id) {
                     project.task.splice(index, 1);
                 };
@@ -38,7 +38,7 @@ const removeTask = (listOfProjects, id) => {
 
 const removeProject = (listOfProjects, id) => {
     if (listOfProjects.length > 0) {
-        listOfProjects.forEach((project, index) => {
+        listOfProjects.filter((project, index) => {
             if (id === project.id) {
                 if (project.title !== "Default") {
                     listOfProjects.splice(index, 1);
@@ -50,7 +50,7 @@ const removeProject = (listOfProjects, id) => {
 
 const addNewTask = (listOfProjects, newTask, id) => {
     listOfProjects.forEach(project => {
-        if (project.id == id) {
+        if (project.id === id) {
             project.task.push(newTask);
         };
     });
