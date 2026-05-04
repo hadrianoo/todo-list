@@ -49,11 +49,11 @@ function userInterface(arr) {
         const actions = {
             "remove-project": () => {
                 currentProjectID = event.target.closest(".project").id;
-                listManager.removeProject(arrProjects, currentProjectID);
+                arrProjects = listManager.removeProject(arrProjects, currentProjectID);
             },
             "add-project": () => {
                 console.log("fired")
-                listManager.addNewProject(arrProjects, createProject());
+                arrProjects = listManager.addNewProject(arrProjects, createProject());
             },
         };
         if (actions[action]) actions[action]();
@@ -78,7 +78,7 @@ function userInterface(arr) {
                     const title = currentProject.querySelector(".title").value;
                     const notes = currentProject.querySelector(".notes").value;
                     const dueDate = currentProject.querySelector(".dueDate").value;
-                    listManager.editProjectList(arrProjects, currentProjectID, { title, notes, dueDate });
+                    arrProjects = listManager.editProjectList(arrProjects, currentProjectID, { title, notes, dueDate });
                     updateProjects();
                 };
                 utilsManager.editProjectDOM(currentProject);
@@ -96,20 +96,20 @@ function userInterface(arr) {
                     const description = currentTask.querySelector(".description").value;
                     const notes = currentTask.querySelector(".notes").value;
                     const dueDate = currentTask.querySelector(".dueDate").value;
-                    listManager.editTaskList(arrProjects, currentTask.id, { description, notes, dueDate });
+                    arrProjects = listManager.editTaskList(arrProjects, currentTask.id, { description, notes, dueDate });
                 };
                 utilsManager.editTaskDOM(currentTask);
             },
             "remove-task": () => {
-                listManager.removeTask(arrProjects, currentTask.id);
+                arrProjects = listManager.removeTask(arrProjects, currentTask.id);
                 updateMain(currentProjectID);
             },
             "change-priority": () => {
-                listManager.changePriority(arrProjects, currentTask.id);
+                arrProjects = listManager.changePriority(arrProjects, currentTask.id);
                 updateMain(currentProjectID);
             },
             "add-task": () => {
-                listManager.addNewTask(arrProjects, createTask(), currentProjectID);
+                arrProjects = listManager.addNewTask(arrProjects, createTask(), currentProjectID);
                 updateMain(currentProjectID);
             },
         }

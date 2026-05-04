@@ -1,94 +1,85 @@
 const changePriority = (listOfProjects, id) => {
-    listOfProjects.forEach(project => {
-        if (project.task.length > 0) {
-            project.task.forEach((item) => {
-                if (id === item.id) {
-                    item.priority = (item.priority === "none")
-                        ? "important"
-                        : "none"
-                };
-            });
-        };
-    });
-}
-
-const finishTask = (listOfProjects, id) => {
-    listOfProjects.forEach(project => {
-        if (project.task.length > 0) {
-            project.task.forEach(task => {
-                if (id === task.id) {
-                    task.isDone = true;
-                };
-            });
-        };
-    });
+    return listOfProjects.map(project => ({
+        ...project,
+        task: project.task.map(task => {
+            if (id !== task.id) {
+                return task;
+            };
+            return {
+                ...task,
+                priority: task.priority === "none" ? "important" : "none"
+            }
+        }),
+    }));
 };
 
 const removeTask = (listOfProjects, id) => {
-    listOfProjects.forEach(project => {
-        if (project.task.length > 0) {
-            project.task.filter((item, index) => {
-                if (id === item.id) {
-                    project.task.splice(index, 1);
-                };
-            });
-        };
-    });
+    return listOfProjects.map(project => ({
+        ...project,
+        task: project.task.filter(task => id !== task.id),
+    }));
 };
 
 const removeProject = (listOfProjects, id) => {
-    if (listOfProjects.length > 0) {
-        listOfProjects.filter((project, index) => {
-            if (id === project.id) {
-                if (project.title !== "Default") {
-                    listOfProjects.splice(index, 1);
-                }
-            };
-        })
-    };
-};
-
-const addNewTask = (listOfProjects, newTask, id) => {
-    listOfProjects.forEach(project => {
-        if (project.id === id) {
-            project.task.push(newTask);
-        };
+    return listOfProjects.filter(project => {
+        if (id === project.id) return true;
+        return project.title !== "Default";
     });
 };
 
+const addNewTask = (listOfProjects, newTask, id) => {
+    return listOfProjects.map(project => {
+        if (project.id !== id) {
+            return project;
+        };
+        return {
+            ...project,
+            task: [...project.task, newTask]
+        }
+    });
+
+};
+
 const addNewProject = (listOfProjects, newProject) => {
-    listOfProjects.push(newProject);
+    return [...listOfProjects, newProject]
 };
 
 const editTaskList = (listOfProjects, id, data) => {
-    if (!data) return;
-    listOfProjects.forEach(project => {
-        if (project.task.length > 0) {
-            project.task.forEach((item, index) => {
-                if (id === item.id) {
-                    item.description = data.description;
-                    item.notes = data.notes;
-                    item.dueDate = data.dueDate;
+    return listOfProjects.map(project => {
+        return {
+            ...project,
+            task: project.task.map(task => {
+                if (id !== task.id) return task;
+                return {
+                    ...task,
+                    ...data,
                 };
-            });
+            })
         };
     });
 };
 
 const editProjectList = (listOfProjects, id, data) => {
-    if (!data) return;
-    listOfProjects.forEach(project => {
-        if (id === project.id) {
-            project.title = data.title;
-            project.notes = data.notes;
-            project.dueDate = data.dueDate;
+    return listOfProjects.map(project => {
+        if (id !== project.id) return project;
+        return {
+            ...project,
+            ...data,
         };
     });
+
+
+    // listOfProjects.forEach(project => {
+    //     if (id === project.id) {
+    //         project.title = data.title;
+    //         project.notes = data.notes;
+    //         project.dueDate = data.dueDate;
+    //     };
+    // });
 };
 
 export {
     changePriority,
-    finishTask,
     removeTask,
     addNewTask,
     editTaskList,
