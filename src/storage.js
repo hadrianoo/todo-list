@@ -10,4 +10,7 @@ function setLocalStorage(key, value) {
     localStorage.setItem(key, string);
 };
 
-export { getLocalStorage, setLocalStorage };
+export {
+    getLocalStorage,
+    setLocalStorage
+};

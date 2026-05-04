@@ -12,7 +12,6 @@ const changePriority = (listOfProjects, id) => {
     });
 }
 
-
 const finishTask = (listOfProjects, id) => {
     listOfProjects.forEach(project => {
         if (project.task.length > 0) {

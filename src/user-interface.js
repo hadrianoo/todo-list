@@ -4,7 +4,6 @@ import { getLocalStorage, setLocalStorage } from "./storage.js";
 import { createTask, createProject } from "./create-list.js";
 
 function userInterface(arr) {
-
     const projects = document.querySelector("#projects");
     const projectsContainer = document.querySelector("#projects-container");
     const main = document.querySelector(".main");
@@ -69,7 +68,6 @@ function userInterface(arr) {
         const currentProject = event.target.closest(".header");
 
         if (event.target.closest("[data-action]") === null) return;
-
         const action = event.target.closest("[data-action]").dataset.action;
         const actions = {
             "toggle-edit-project": () => {
@@ -117,7 +115,6 @@ function userInterface(arr) {
             },
         }
         if (actions[action]) actions[action]();
-
         setLocalStorage("todo-list", arrProjects);
     });
 

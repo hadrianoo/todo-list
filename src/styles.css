@@ -105,7 +105,6 @@ input::placeholder {
 
 .editable input::placeholder {
     color: grey;
-
 }
 
 input:read-only {
@@ -171,16 +170,12 @@ input:read-write {
     overflow: auto;
 }
 
-
-
 .add-main,
 .add-project {
     position: absolute;
     bottom: 1rem;
     right: 1rem;
 }
-
-
 
 .button:hover {
     transform: scale(1.2);

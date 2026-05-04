@@ -1,4 +1,3 @@
-import { format } from "date-fns";
 import { svgLib } from "./svg-elements.js";
 
 function printProjectMain(appendTo, project) {
