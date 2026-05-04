@@ -71,6 +71,16 @@ body {
     content: "Until:";
 }
 
+.header>.edit {
+    justify-self: end;
+}
+
+.default>.notes,
+.default>.dueDate,
+.header.default>.edit {
+    display: none;
+}
+
 .task {
     margin-left: 2rem;
     background-color: rgb(206, 206, 206);

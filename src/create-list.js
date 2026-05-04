@@ -14,7 +14,7 @@ function createTask(
 };
 
 function createProject(
-    title = "What is your project?",
+    title = "New project",
     dueDate = new Date(),
     notes = "Add details...") {
     return {

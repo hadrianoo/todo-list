@@ -40,6 +40,8 @@ function userInterface(arr) {
     };
 
     projectsContainer.addEventListener("click", (event) => {
+        if (event.target.id === null) return;
+        currentProjectID = event.target.id;
         arrProjects = getLocalStorage("todo-list") || arr;
         updateMain(event.target.id);
 
@@ -61,20 +63,33 @@ function userInterface(arr) {
         updateProjects();
     });
 
-
     main.addEventListener("click", (event) => {
         arrProjects = getLocalStorage("todo-list") || arr;
         const currentTask = event.target.closest(".task");
+        const currentProject = event.target.closest(".header");
 
         if (event.target.closest("[data-action]") === null) return;
 
         const action = event.target.closest("[data-action]").dataset.action;
         const actions = {
+            "toggle-edit-project": () => {
+                currentProject.classList.toggle("editable");
+                if (currentProject.classList.contains("editable")) {
+                    currentProject.classList.add("active");
+                } else {
+                    currentProject.classList.remove("active");
+                    const title = currentProject.querySelector(".title").value;
+                    const notes = currentProject.querySelector(".notes").value;
+                    const dueDate = currentProject.querySelector(".dueDate").value;
+                    listManager.editProjectList(arrProjects, currentProjectID, { title, notes, dueDate });
+                };
+                utilsManager.editProjectDOM(currentProject);
+            },
             "toggle-active": () => {
                 if (currentTask.classList.contains("editable")) return;
                 currentTask.classList.toggle("active");
             },
-            "toggle-edit": () => {
+            "toggle-edit-task": () => {
                 currentTask.classList.toggle("editable");
                 if (currentTask.classList.contains("editable")) {
                     currentTask.classList.add("active");

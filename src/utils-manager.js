@@ -3,26 +3,44 @@ import { svgLib } from "./svg-elements.js";
 
 function printProjectMain(appendTo, project) {
     const projectContainer = document.createElement("div");
-    const title = document.createElement("div");
+    const title = document.createElement("input");
     const dueDate = document.createElement("input");
-    const notes = document.createElement("div");
+    const notes = document.createElement("input");
+    const edit = document.createElement("div");
+
+    title.type = "text";
+    title.name = "title";
+    title.readOnly = true;
 
     dueDate.type = "date";
+    dueDate.name = "dueDate";
     dueDate.readOnly = true;
 
+    notes.type = "text";
+    notes.name = "notes";
+    notes.readOnly = true;
+    if (project.title === "Default") {
+        projectContainer.classList.add("default");
+    }
+
     appendTo.id = project.id;
-    projectContainer.className = "header";
+    projectContainer.classList.add("header");
     title.className = "title";
     dueDate.className = "dueDate";
     notes.className = "notes";
 
-    title.textContent = project.title;
+    title.value = project.title;
     dueDate.valueAsDate = new Date(project.dueDate);
-    notes.textContent = project.notes;
+    notes.value = project.notes;
+
+    edit.innerHTML = svgLib().editSVG;
+    edit.dataset.action = "toggle-edit-project";
+    edit.className = "edit button";
 
     projectContainer.appendChild(title);
     projectContainer.appendChild(dueDate);
     projectContainer.appendChild(notes);
+    projectContainer.appendChild(edit);
     appendTo.appendChild(projectContainer);
 };
 
@@ -61,7 +79,7 @@ function printTaskMain(appendTo, task) {
 
     dueDate.className = "dueDate";
     edit.className = "edit button";
-    edit.dataset.action = "toggle-edit";
+    edit.dataset.action = "toggle-edit-task";
 
     isDone.innerHTML = svgLib().exitSVG;
     description.value = task.description;
@@ -119,6 +137,17 @@ function editTaskDOM(task) {
     };
 };
 
+function editProjectDOM(project) {
+    const nodeList = project.querySelectorAll("input");
+    for (let i = 0; i < nodeList.length; i++) {
+        if (project.classList.contains("editable")) {
+            nodeList[i].readOnly = false;
+        } else {
+            nodeList[i].readOnly = true;
+        };
+    };
+};
+
 export {
     printProjectMain,
     printTaskMain,
@@ -126,5 +155,6 @@ export {
     addButtonProjects,
     addButtonMain,
     editTaskDOM,
+    editProjectDOM,
 };
 

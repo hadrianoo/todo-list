@@ -76,6 +76,17 @@ const editTaskList = (listOfProjects, id, data) => {
     });
 };
 
+const editProjectList = (listOfProjects, id, data) => {
+    if (!data) return;
+    listOfProjects.forEach(project => {
+        if (id === project.id) {
+            project.title = data.title;
+            project.notes = data.notes;
+            project.dueDate = data.dueDate;
+        };
+    });
+};
+
 export {
     changePriority,
     finishTask,
@@ -83,5 +94,6 @@ export {
     addNewTask,
     editTaskList,
     removeProject,
-    addNewProject
+    addNewProject,
+    editProjectList,
 };
